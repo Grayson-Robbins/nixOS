@@ -19,6 +19,15 @@ in
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
     };
+
+    opacity = {
+      applications = 1.0;
+      terminal = 0.95;
+      desktop = 1.0;
+      popups = 1.0;
+    };
+
+    polarity = "dark";
   };
 }
 
