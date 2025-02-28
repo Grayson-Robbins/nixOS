@@ -18,7 +18,10 @@
   ];
   
   programs.kitty.enable = true;
-
+  home.packages = with pkgs; [
+    gotop # Resource monitor TUI
+    cbonsai # Nice bonsai tree written in C
+  ];
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
 }
