@@ -13,6 +13,7 @@
 
     stylix.url = "github:danth/stylix";
     nvf.url = "github:notashelf/nvf"; # NVF flake input
+    nix-inspect.url = "github:bluskript/nix-inspect";
   };
 
   outputs = { self, nixpkgs, home-manager, nvf, stylix, ... }@inputs:
@@ -27,21 +28,8 @@
 
 	modules = [
           ./home.nix
-          # ./homeManagerModules/gtk.nix
-          # ./homeManagerModules/hyprland.nix
-          # ./homeManagerModules/packages.nix
-          # ./homeManagerModules/git.nix
-          # ./homeManagerModules/nvf.nix
-          # ./homeManagerModules/yazi.nix
-          # ./homeManagerModules/stylix.nix
-          # ./homeManagerModules/qutebrowser.nix
-	 #./homeManagerModules/waybar.nix
-	  # ./homeManagerModules/cursor.nix
-	  # ./homeManagerModules/tmux.nix
-	  # inputs.stylix.nixosModules.stylix
-	  # nvf.homeManagerModules.default
 	];
-         extraSpecialArgs = { inherit inputs; }; # This line passes inputs over to home-manager / home.nix
+        extraSpecialArgs = { inherit inputs; }; # This line passes inputs over to home-manager / home.nix
       };
     };
   };
