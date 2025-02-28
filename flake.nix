@@ -13,7 +13,6 @@
 
     stylix.url = "github:danth/stylix";
     nvf.url = "github:notashelf/nvf"; # NVF flake input
-    nix-inspect.url = "github:bluskript/nix-inspect";
   };
 
   outputs = { self, nixpkgs, home-manager, nvf, stylix, ... }@inputs:
