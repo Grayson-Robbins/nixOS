@@ -23,7 +23,8 @@
     cbonsai # Nice bonsai tree written in C
     superfile # Fancy file manager
     hledger # Plaintext accounting TUI
-    nix-inspect 
+    nix-inspect
+    prismlauncher # Open-source minecraft launcher
   ];
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
