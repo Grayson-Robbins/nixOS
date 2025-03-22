@@ -3,7 +3,7 @@
 {
   home.username = "graysonr"; 
   home.homeDirectory = "/home/graysonr"; 
-  home.sessionVariables.EDITOR = "nvim";
+  #home.sessionVariables.EDITOR = "nvim";
 
   imports = [
     ./homeManagerModules/gtk.nix
