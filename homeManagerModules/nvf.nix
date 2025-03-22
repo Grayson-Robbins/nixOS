@@ -21,7 +21,7 @@
 
       theme = {
         enable = true;
-        name = "gruvbox";
+        name = lib.mkForce "gruvbox";
         style = "dark";
       };
 
