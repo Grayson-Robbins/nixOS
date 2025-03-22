@@ -13,10 +13,8 @@
     ollama
     lagrange
     copyq
-    pavucontrol
     bottom
     orpie
-    dolphin
     gthumb
     wl-clipboard
     gitui
