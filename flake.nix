@@ -21,6 +21,21 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in
   {
+    packages.${system}.default = 
+      (nvf.lib.neovimConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        modules = [ ./modules/nixos/nvf-configuration.nix ];
+      }).neovim;
+
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./configuration.nix
+        nvf.nixosModules.default
+      ];
+    };
+
+
     homeConfigurations = {
       graysonr = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
