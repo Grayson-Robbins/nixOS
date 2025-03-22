@@ -20,7 +20,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in
   {
-    packages.${system}.default = configuredNvim.packages.${system}.default;
+    packages."x86_64-linux".default = configuredNvim.packages."x86_64-linux".default;
 
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
