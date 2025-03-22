@@ -106,14 +106,18 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1742623054,
+        "lastModified": 1742626535,
         "narHash": "sha256-xNFfU4N1bPf9CC+EY/0N92cz4fL3bDXpvQ0SMY7dUpo=",
-        "path": "/home/graysonr/nixOS/modules/nixos/nvf",
-        "type": "path"
+        "owner": "Grayson-Robbins",
+        "repo": "nvf-config",
+        "rev": "589a965d344eb9087a7cac6370c18de9a6aa5362",
+        "type": "github"
       },
       "original": {
-        "path": "/home/graysonr/nixOS/modules/nixos/nvf",
-        "type": "path"
+        "owner": "Grayson-Robbins",
+        "ref": "master",
+        "repo": "nvf-config",
+        "type": "github"
       }
     },
     "firefox-gnome-theme": {
