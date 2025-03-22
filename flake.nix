@@ -10,7 +10,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    configuredNvim.url = "path:/home/graysonr/nixOS/modules/nixos/nvf";
+    configuredNvim.url = "github:Grayson-Robbins/nvf-config/master";
     stylix.url = "github:danth/stylix";
   };
 
