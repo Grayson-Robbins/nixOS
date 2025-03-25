@@ -148,7 +148,12 @@
   ];
 
   environment.variables.EDITOR = "nvim"; # Set neovim as the default editor for the system
+  environment.shellAliases = {
+    nvim = "nix run ~/nixOS/";
+    vi = "nix run ~/nixOS/";
+    vim = "nix run ~/nixOS/";
 
+  };
   xdg.portal.enable = true; # Enable desktop portal
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Using GTK from Vimjoyer's Hyprland tutorial
 

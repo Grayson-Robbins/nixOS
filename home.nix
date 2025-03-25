@@ -10,7 +10,6 @@
     ./homeManagerModules/hyprland.nix
     ./homeManagerModules/packages.nix
     ./homeManagerModules/git.nix
-    #./homeManagerModules/nvf.nix
     ./homeManagerModules/yazi.nix
     ./homeManagerModules/stylix.nix
     ./homeManagerModules/qutebrowser.nix
