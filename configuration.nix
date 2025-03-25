@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/nixos/nh.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -147,12 +148,6 @@
   ];
 
   environment.variables.EDITOR = "nvim"; # Set neovim as the default editor for the system
-  programs.neovim = {
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
-
 
   xdg.portal.enable = true; # Enable desktop portal
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Using GTK from Vimjoyer's Hyprland tutorial
@@ -160,7 +155,6 @@
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
   
-
   programs.gamemode.enable = true;
 
   # Allow insecure dotnet runtime so that Vintage Story will work

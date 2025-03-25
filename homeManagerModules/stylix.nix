@@ -54,6 +54,10 @@ in
         popups = 10;
       };
     };
+
+    targets = {
+      qutebrowser.enable = false;
+    };
   };
 }
 
