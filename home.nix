@@ -26,6 +26,7 @@
     prismlauncher # Open-source minecraft launcher
     starsector
     librewolf # Open-source, privacy-centric Firefox fork
+    bat # improved cat utility, provides syntax highlighting and vim-like navigation
   ];
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
