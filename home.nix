@@ -24,6 +24,8 @@
     hledger # Plaintext accounting TUI
     nix-inspect
     prismlauncher # Open-source minecraft launcher
+    starsector
+    librewolf # Open-source, privacy-centric Firefox fork
   ];
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
