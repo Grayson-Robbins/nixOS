@@ -16,10 +16,12 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
 
+    xwayland.enable = true;
+
     settings = {
       monitor = [
-        "DP-1, 2560x1440@144, 0x0,1"
-        "DP-2, 2560x1440@144, 2560x0, 1"
+        "DP-2, 2560x1440@144, 0x0,1"
+        "DP-1, 2560x1440@144, 2560x0, 1"
       ];
 
       "$terminal" = "kitty"; 
@@ -106,7 +108,7 @@ in
 
       misc = {
         force_default_wallpaper = "0";
-	disable_hyprland_logo = "true";
+        #disable_hyprland_logo = "true";
       };
 
       input = {
@@ -188,7 +190,7 @@ in
 	"suppressevent maximize, class:.*"
 
 	# Fix some dragging issues with XWayland
-	"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+	# "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
 
       workspace = [

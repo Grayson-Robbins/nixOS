@@ -6,14 +6,14 @@
   #home.sessionVariables.EDITOR = "nvim";
 
   imports = [
-    ./homeManagerModules/gtk.nix
-    ./homeManagerModules/hyprland.nix
-    ./homeManagerModules/packages.nix
-    ./homeManagerModules/git.nix
-    ./homeManagerModules/yazi.nix
-    ./homeManagerModules/stylix.nix
-    ./homeManagerModules/qutebrowser.nix
-    ./homeManagerModules/tmux.nix
+    ./homeModules/gtk.nix
+    ./homeModules/hyprland.nix
+    ./homeModules/packages.nix
+    ./homeModules/git.nix
+    ./homeModules/yazi.nix
+    ./homeModules/stylix.nix
+    ./homeModules/qutebrowser.nix
+    ./homeModules/tmux.nix
   ];
   
   programs.kitty.enable = true;
@@ -27,6 +27,7 @@
     starsector
     librewolf # Open-source, privacy-centric Firefox fork
     bat # improved cat utility, provides syntax highlighting and vim-like navigation
+    yt-dlp
   ];
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
