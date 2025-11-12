@@ -438,7 +438,7 @@ in
 
           nix.enable = true;
           ts.enable = true;
-          python.enable = true;
+          #python.enable = true;
           lua.enable = true;
         };
 

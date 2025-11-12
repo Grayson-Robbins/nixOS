@@ -15,22 +15,22 @@
       modules-left = [ "hyprland/workspaces" ];
       modules-right = [
         "pulseaudio"
-	"network"
-	"cpu"
-	"memory"
-	"temperature"
-	"clock"
-	"tray"
+        "network"
+        "cpu"
+        "memory"
+        "temperature"
+        "clock"
+        "tray"
       ];
       
       clock = {
         format-alt = "{:%Y-%m-%d}";
-	tooltip-format = "{:%Y-%m-%d | %H:%M}";
+        tooltip-format = "{:%Y-%m-%d | %H:%M}";
       };
 
       cpu = {
         format = "{usage}%";
-	tooltip = false;
+        tooltip = false;
       };
 
       memory = { format = "{}%"; };

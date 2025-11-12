@@ -6,12 +6,12 @@
   #home.sessionVariables.EDITOR = "nvim";
 
   imports = [
-    ./homeModules/gtk.nix
+    ./homeModules/styling/gtk.nix
     ./homeModules/hyprland.nix
     ./homeModules/packages.nix
     ./homeModules/git.nix
     ./homeModules/yazi.nix
-    ./homeModules/stylix.nix
+    ./homeModules/styling/stylix.nix
     ./homeModules/qutebrowser.nix
     ./homeModules/tmux.nix
   ];
@@ -24,7 +24,6 @@
     hledger # Plaintext accounting TUI
     nix-inspect
     prismlauncher # Open-source minecraft launcher
-    starsector
     librewolf # Open-source, privacy-centric Firefox fork
     bat # improved cat utility, provides syntax highlighting and vim-like navigation
     yt-dlp

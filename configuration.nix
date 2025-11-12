@@ -44,7 +44,7 @@
   #services.xserver.desktopManager.gnome.enable = true;
   
   # Enable Hyprland
-  services.xserver.displayManager.gdm.wayland = true;
+  services.displayManager.gdm.wayland = true;
   services.xserver.videoDrivers = ["nvidia"]; # Set video drivers for gaming, also enables them for wayland
  
    programs.hyprland = {
@@ -135,13 +135,12 @@
 
     mako # pure wayland notification daemon
     libnotify # mako relies on this
-    protonup
+    protonup-ng
     kitty # Hyprland default terminal
 
     swww # Wallpaper manager
     networkmanagerapplet
     wofi # app launcher, based on GTK
-    lutris
     bottles
     ags # Aylur's GTK Shell, for making wayland widgets
     bun # Used to make AGS projects in TS

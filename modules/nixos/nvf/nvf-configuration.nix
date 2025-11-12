@@ -19,7 +19,7 @@
 
       nix.enable = true;
       ts.enable = true;
-      python.enable = true;
+      #python.enable = true;
     };
     
     options = { # Get the tab to go 2 spaces (Finally! :D)
