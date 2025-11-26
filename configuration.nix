@@ -47,11 +47,15 @@
   services.displayManager.gdm.wayland = true;
   services.xserver.videoDrivers = ["nvidia"]; # Set video drivers for gaming, also enables them for wayland
  
-   programs.hyprland = {
-     enable = true;
-  #   #package = inputs.hyprland.packages."${pkgs.system}".hyprland; # Set this in flake, useful for getting hyprland plugins in home-manager
-     xwayland.enable = true;
-   };
+  programs.hyprland = {
+    enable = true;
+     #package = inputs.hyprland.packages."${pkgs.system}".hyprland; # Set this in flake, useful for getting hyprland plugins in home-manager
+    xwayland.enable = true;
+  };
+
+ #programs.niri = {
+ #  enable = true;
+ #};
 
   environment.sessionVariables = {
     #WLR_NO_HARDWARE_CURSORS = "1"; # If cursor becomes invisible in wayland
@@ -60,10 +64,15 @@
     NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
       "/home/graysonr/.steam/root/compatibilitytools.d";
+    DISPLAY = ":1";
+    WAYLAND_DISPLAY = "wayland-1";
   };
 
-  hardware.graphics.enable = true; 
-  hardware.graphics.enable32Bit = true;
+  hardware.graphics = {
+    enable = true; 
+    enable32Bit = true;
+    extraPackages = with pkgs; [ libGL egl-wayland ];
+  };
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
@@ -71,6 +80,11 @@
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = [ pkgs.nvidia-vaapi-driver ];
   };
 
   # Configure keymap in X11
@@ -116,6 +130,15 @@
 
   # Enable unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  boot = {
+    kernelModules = [
+      "nvidia"
+      "nvidia-drm"
+      "nvidia-modeset"
+    ];
+    kernelParams = [ "nvidia-drm.modeset=1" ];
+  };
 
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -182,8 +205,10 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+
+  # NEED 42420 OPEN FOR VINTAGE STORY!!!
+  networking.firewall.allowedTCPPorts = [ 42420 ];
+  networking.firewall.allowedUDPPorts = [ 42420 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

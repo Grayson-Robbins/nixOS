@@ -8,16 +8,21 @@
   imports = [
     ./homeModules/styling/gtk.nix
     ./homeModules/hyprland.nix
+    ./homeModules/niri.nix
     ./homeModules/packages.nix
     ./homeModules/git.nix
     ./homeModules/yazi.nix
     ./homeModules/styling/stylix.nix
     ./homeModules/qutebrowser.nix
     ./homeModules/tmux.nix
+    ./homeModules/applications/vintageStory.nix
+    ./homeModules/applications/discord.nix
   ];
   
   programs.kitty.enable = true;
   home.packages = with pkgs; [
+    xwayland
+    #niri # Window manager, wayland based
     gotop # Resource monitor TUI
     cbonsai # Nice bonsai tree written in C
     superfile # Fancy file manager
@@ -28,6 +33,7 @@
     bat # improved cat utility, provides syntax highlighting and vim-like navigation
     yt-dlp
   ];
+
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
 }

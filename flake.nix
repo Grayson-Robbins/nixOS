@@ -11,10 +11,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     configuredNvim.url = "github:Grayson-Robbins/nvf-config/master";
-    stylix.url = "github:danth/stylix";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    niri-flake.url = "github:sodiboo/niri-flake";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, configuredNvim, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, niri-flake, configuredNvim, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};

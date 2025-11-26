@@ -9,7 +9,10 @@ let
 };
 in 
 {
-  imports = [ inputs.stylix.homeModules.stylix ];
+  imports = [ 
+    inputs.stylix.homeModules.stylix 
+    #inputs.niri-flake.homeModules.niri
+  ];
 
   stylix = {
     enable = true;
@@ -57,6 +60,7 @@ in
 
     targets = {
       qutebrowser.enable = false;
+      #niri.enable = true;
     };
   };
 }
