@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./modules/nixos/nh.nix
+      ./modules/nixos/vintagestory-server.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -71,7 +72,7 @@
   hardware.graphics = {
     enable = true; 
     enable32Bit = true;
-    extraPackages = with pkgs; [ libGL egl-wayland ];
+    extraPackages = with pkgs; [ libGL egl-wayland nvidia-vaapi-driver ];
   };
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -82,10 +83,10 @@
     nvidiaSettings = true;
   };
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = [ pkgs.nvidia-vaapi-driver ];
-  };
+ #hardware.opengl = {
+ #  enable = true;
+ #  extraPackages = [ pkgs.nvidia-vaapi-driver ];
+ #};
 
   # Configure keymap in X11
    services.xserver.xkb = {
@@ -116,13 +117,16 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-   users.users.graysonr = {
+   users.users = {
+    graysonr = {
      isNormalUser = true;
      description = "Grayson Robbins";
      extraGroups = [ "networkmanager" "wheel" ]; # Enable ‘sudo’ for the user.
      packages = with pkgs; [
        # thunderbird
      ];
+    };
+
    };
 
   # Install firefox
@@ -209,6 +213,23 @@
   # NEED 42420 OPEN FOR VINTAGE STORY!!!
   networking.firewall.allowedTCPPorts = [ 42420 ];
   networking.firewall.allowedUDPPorts = [ 42420 ];
+
+
+  services.vintagestory-server.enable = true;
+
+  services.vintagestory-server.dataDir = "/var/lib/vintagestory";
+
+  services.vintagestory-server.configJson = ''
+    {
+      "serverName": "My NixOS VS Server",
+      "maxPlayers": 12,
+      "serverPort": 42420,
+      "maxChunkGenerateDistance": 7,
+      "maxChunkSafeRange": 5,
+      "saveInterval": 300
+    }
+  '';
+
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
