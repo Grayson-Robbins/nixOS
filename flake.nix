@@ -16,15 +16,29 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri-flake.url = "github:sodiboo/niri-flake";
+
+    vintagestory-nix = {
+      url = "git+https://codeberg.org/PierreBorine/vintagestory-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    vs2nix = {
+      url = "github:dtomvan/vs2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, niri-flake, configuredNvim, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, stylix, niri-flake, configuredNvim, vs2nix, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in
   {
     packages."x86_64-linux".default = configuredNvim.packages."x86_64-linux".default;
+    packages."x86_64-linux".myModsDir = vs2nix.legacyPackages.${system}.makeVintageStoryModsDir "my-modpack-3000" (mods: with mods; [
+        # run `nix flake show github:dtomvan/vs2nix` for the mod names
+        carryon
+
+    ]);
 
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };

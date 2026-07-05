@@ -8,7 +8,7 @@
   imports = [
     ./homeModules/styling/gtk.nix
     ./homeModules/hyprland.nix
-    ./homeModules/niri.nix
+    #./homeModules/niri.nix
     ./homeModules/packages.nix
     ./homeModules/git.nix
     ./homeModules/yazi.nix
@@ -17,6 +17,7 @@
     ./homeModules/tmux.nix
     ./homeModules/applications/vintageStory.nix
     ./homeModules/applications/discord.nix
+    inputs.vintagestory-nix.homeModules.default
   ];
   
   programs.kitty.enable = true;
@@ -29,12 +30,26 @@
     hledger # Plaintext accounting TUI
     nix-inspect
     prismlauncher # Open-source minecraft launcher
-    librewolf # Open-source, privacy-centric Firefox fork
+    mullvad-browser
+    mullvad-vpn
+    #mullvad
+    #librewolf # Open-source, privacy-centric Firefox fork
     bat # improved cat utility, provides syntax highlighting and vim-like navigation
     yt-dlp
+    tailscale
+    vintagestoryPackages.latest # ignores RCs
+    vintagestoryPackages.rustique
+    vintagestoryPackages.vs-launcher
   ];
 
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
+
+  programs.vs-launcher = {
+    enable = true;
+    settings.gameVersions = with pkgs; [
+      vintagestoryPackages.v1-22-3
+    ];
+  };
 }
 

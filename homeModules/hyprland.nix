@@ -20,8 +20,9 @@ in
 
     settings = {
       monitor = [
-        "DP-2, 2560x1440@144, 0x0,1"
-        "DP-1, 2560x1440@144, 2560x0, 1"
+        "DP-1, 2560x1440@144, 0x0,1"
+        "DP-2, 2560x1440@144, 2560x0, 1"
+        ", preferred, auto, 1, mirror, DP-2" # Uncomment this line to mirror DP-2 to a TV or other third display
       ];
 
       "$terminal" = "kitty"; 
@@ -97,10 +98,10 @@ in
 	];
       };
 
-      dwindle = {
-        pseudotile = "true";
-	preserve_split = "true";
-      };
+      #dwindle = {
+      #  pseudotile = "true";
+      #preserve_split = "true";
+      #};
 
       master = {
         new_status = "master";
@@ -133,7 +134,7 @@ in
 	"$mod, F, togglefloating"
 	"$mod, R, exec, $menu"
 	"$mod, P, pseudo"
-	"$mod, J, togglesplit"
+        #"$mod, J, togglesplit"
 	
 	# Move focus with mod + arrow keys
 	"$mod, left, movefocus, l"
@@ -183,13 +184,13 @@ in
 	"$mod, mouse:273, resizewindow"
       ];
 
-      windowrulev2 = [
+      #windowrulev2 = [
       	# Ignore maximize requests from apps
-	"suppressevent maximize, class:.*"
+        #"suppressevent maximize, class:.*"
 
 	# Fix some dragging issues with XWayland
 	# "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-      ];
+        #];
 
       workspace = [
         "1, monitor:DP-1, default:true"

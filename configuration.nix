@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
   imports =
@@ -10,11 +10,14 @@
       ./hardware-configuration.nix
       ./modules/nixos/nh.nix
       ./modules/nixos/vintagestory-server.nix
+      inputs.vintagestory-nix.nixosModules.default
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -45,14 +48,16 @@
   #services.xserver.desktopManager.gnome.enable = true;
   
   # Enable Hyprland
-  services.displayManager.gdm.wayland = true;
-  services.xserver.videoDrivers = ["nvidia"]; # Set video drivers for gaming, also enables them for wayland
+  #services.displayManager.gdm.wayland = true;
+  services.xserver.videoDrivers = [ "amdgpu" ]; # Set video drivers for gaming, also enables them for wayland
  
   programs.hyprland = {
     enable = true;
      #package = inputs.hyprland.packages."${pkgs.system}".hyprland; # Set this in flake, useful for getting hyprland plugins in home-manager
     xwayland.enable = true;
   };
+
+  programs.niri.enable = true;
 
  #programs.niri = {
  #  enable = true;
@@ -72,15 +77,23 @@
   hardware.graphics = {
     enable = true; 
     enable32Bit = true;
-    extraPackages = with pkgs; [ libGL egl-wayland nvidia-vaapi-driver ];
+    extraPackages = with pkgs; [ libGL egl-wayland rocmPackages.clr.icd ];
   };
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
+
+ #hardware.nvidia = {
+ #  package = config.boot.kernelPackages.nvidiaPackages.stable;
+ #  modesetting.enable = true;
+ #  powerManagement.enable = false;
+ #  powerManagement.finegrained = false;
+ #  open = false;
+ #  nvidiaSettings = true;
+ #};
+
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.rp_filter" = 0;
+    "net.ipv4.conf.default.rp_filter" = 0;
+    "net.ipv4.conf.enp3s0.rp_filter" = 0;
+    "net.ipv4.ip_forward" = 1;  # Enable IP forwarding
   };
 
  #hardware.opengl = {
@@ -134,18 +147,24 @@
 
   # Enable unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [inputs.vintagestory-nix.overlays.default];
 
   boot = {
     kernelModules = [
-      "nvidia"
-      "nvidia-drm"
-      "nvidia-modeset"
+      "amdgpu"
+      "tun"
+      "nft_chain_nat"
+     #"nvidia"
+     #"nvidia-drm"
+     #"nvidia-modeset"
     ];
-    kernelParams = [ "nvidia-drm.modeset=1" ];
+   #kernelParams = [ "nvidia-drm.modeset=1" ];
   };
 
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  virtualisation.vmware.host.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -154,6 +173,8 @@
     wget
     git
     home-manager
+    clinfo # To verify that OpenCL is correctly setup
+    ethtool
 
     (waybar.overrideAttrs (oldAttrs: { # Use waybar for hyprland
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ]; # Overwrite some attributes to make this work with Hyprland, might be unnecessary.
@@ -214,21 +235,49 @@
   networking.firewall.allowedTCPPorts = [ 42420 ];
   networking.firewall.allowedUDPPorts = [ 42420 ];
 
-
-  services.vintagestory-server.enable = true;
-
-  services.vintagestory-server.dataDir = "/var/lib/vintagestory";
-
-  services.vintagestory-server.configJson = ''
-    {
-      "serverName": "My NixOS VS Server",
-      "maxPlayers": 12,
-      "serverPort": 42420,
-      "maxChunkGenerateDistance": 7,
-      "maxChunkSafeRange": 5,
-      "saveInterval": 300
-    }
+  networking.firewall.extraCommands = ''
+    ip6tables -A INPUT -p tcp --dport 42420 -j ACCEPT
+    ip6tables -A INPUT -p udp --dport 42420 -j ACCEPT
   '';
+
+  networking.firewall.checkReversePath = false;
+
+
+  services.tailscale.enable = true;
+
+  systemd.services.tailscaled = {
+    unitConfig.DefaultDependencies = false;
+    wantedBy = [ "initrd.target" ];
+    serviceConfig.Environment = [
+      "PORT=${toString(config.services.tailscale.port)}"
+      ''"FLAGS=--tun ${lib.escapeShellArg config.services.tailscale.interfaceName}"''
+    ];
+  };
+
+  services.vintagestory = {
+    enable = true;
+    package = pkgs.vintagestoryPackages.v1-22-3;
+    openFirewall = true;
+  };
+
+
+  #services.vintagestory-server = {
+  #  enable = true;
+  #  whitelist = [ "Nomad7824" "SunnySue" "Houstano" ];
+  #};
+
+  #services.vintagestory-server.dataDir = "/var/lib/vintagestory";
+
+  #services.vintagestory-server.configJson = ''
+  #  {
+  #    "serverName": "My NixOS VS Server",
+  #    "maxPlayers": 12,
+  #    "serverPort": 42420,
+  #    "maxChunkGenerateDistance": 7,
+  #    "maxChunkSafeRange": 5,
+  #    "saveInterval": 300
+  #  }
+  #'';
 
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
