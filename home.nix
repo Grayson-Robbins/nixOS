@@ -18,6 +18,7 @@ let
     ./homeModules/qutebrowser.nix
     ./homeModules/tmux.nix
     ./homeModules/applications/discord.nix
+    ./homeModules/applications/mpv.nix
     inputs.vintagestory-nix.homeModules.default
   ];
   
