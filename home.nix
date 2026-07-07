@@ -20,6 +20,8 @@ let
     ./homeModules/applications/discord.nix
     ./homeModules/applications/mpv.nix
     inputs.vintagestory-nix.homeModules.default
+
+    ./homeModules/applications/odysseus
   ];
   
   programs.kitty.enable = true;
