@@ -1,5 +1,7 @@
 { config, lib, pkgs, nix-colors, inputs, ... }:
-
+let
+  vintagestoryPackages = inputs.vintagestory-nix.packages.${pkgs.system};
+  in
 {
   home.username = "graysonr"; 
   home.homeDirectory = "/home/graysonr"; 
@@ -15,7 +17,6 @@
     ./homeModules/styling/stylix.nix
     ./homeModules/qutebrowser.nix
     ./homeModules/tmux.nix
-    ./homeModules/applications/vintageStory.nix
     ./homeModules/applications/discord.nix
     inputs.vintagestory-nix.homeModules.default
   ];
@@ -45,11 +46,11 @@
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
 
-  programs.vs-launcher = {
-    enable = true;
-    settings.gameVersions = with pkgs; [
-      vintagestoryPackages.v1-22-3
-    ];
-  };
+  #programs.vs-launcher = {
+  #enable = true;
+  #settings.gameVersions = with pkgs; [
+  #vintagestoryPackages.v1-22-3
+  #];
+  #};
 }
 

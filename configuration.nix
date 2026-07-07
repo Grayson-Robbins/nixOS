@@ -261,24 +261,6 @@
   };
 
 
-  #services.vintagestory-server = {
-  #  enable = true;
-  #  whitelist = [ "Nomad7824" "SunnySue" "Houstano" ];
-  #};
-
-  #services.vintagestory-server.dataDir = "/var/lib/vintagestory";
-
-  #services.vintagestory-server.configJson = ''
-  #  {
-  #    "serverName": "My NixOS VS Server",
-  #    "maxPlayers": 12,
-  #    "serverPort": 42420,
-  #    "maxChunkGenerateDistance": 7,
-  #    "maxChunkSafeRange": 5,
-  #    "saveInterval": 300
-  #  }
-  #'';
-
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
