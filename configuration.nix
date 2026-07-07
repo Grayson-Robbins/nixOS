@@ -166,6 +166,15 @@
 
   virtualisation.vmware.host.enable = true;
 
+  # Rootless docker setup for Odysseuss
+  virtualisation.docker = {
+    enable = false;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -175,6 +184,8 @@
     home-manager
     clinfo # To verify that OpenCL is correctly setup
     ethtool
+
+    ollama
 
     (waybar.overrideAttrs (oldAttrs: { # Use waybar for hyprland
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ]; # Overwrite some attributes to make this work with Hyprland, might be unnecessary.
@@ -227,7 +238,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
 
@@ -258,6 +269,12 @@
     enable = true;
     package = pkgs.vintagestoryPackages.v1-22-3;
     openFirewall = true;
+  };
+
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-vulkan;
   };
 
 
