@@ -4,6 +4,8 @@
       git
       docker-compose
       ollama
+      llama-cpp
+      python3Packages.huggingface-hub
     ];
 
     home.file.".local/share/odysseus/allowed".source = ./files/allowed;
