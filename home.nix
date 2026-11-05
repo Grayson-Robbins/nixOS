@@ -2,7 +2,6 @@
 {
   home.username = "graysonr"; 
   home.homeDirectory = "/home/graysonr"; 
-  #home.sessionVariables.EDITOR = "nvim";
 
   imports = [
     ./homeModules/styling/gtk.nix
@@ -18,21 +17,16 @@
     ./homeModules/applications/mpv.nix
     ./homeModules/applications/odysseus
   ];
-  
+
   programs.kitty.enable = true;
   home.packages = with pkgs; [
     xwayland
-    #niri # Window manager, wayland based
+    wayvnc # Wayland-compatible remote desktop access
     gotop # Resource monitor TUI
-    cbonsai # Nice bonsai tree written in C
     superfile # Fancy file manager
-    hledger # Plaintext accounting TUI
     nix-inspect
     prismlauncher # Open-source minecraft launcher
     mullvad-browser
-    mullvad-vpn
-    #mullvad
-    #librewolf # Open-source, privacy-centric Firefox fork
     bat # improved cat utility, provides syntax highlighting and vim-like navigation
     yt-dlp
     tailscale
