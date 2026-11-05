@@ -61,8 +61,8 @@
     QT_QPA_PLATFORM = "xcb";
     QT_QPA_PLATFORMTHEME="qt5ct";
     NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
-      "/home/graysonr/.steam/root/compatibilitytools.d";
+    #STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
+    #"/home/graysonr/.steam/root/compatibilitytools.d";
     DISPLAY = ":1";
     WAYLAND_DISPLAY = "wayland-1";
   };
