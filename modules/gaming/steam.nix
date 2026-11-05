@@ -1,8 +1,11 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
+let 
+  cfg = config.gaming.steam;
+in
 {
-  options.steam.enable = lib.mkEnableOption "Steam";
+  options.gaming.steam.enable = lib.mkEnableOption "Steam";
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.steam.enable = true;
     programs.steam.gamescopeSession.enable = true;
     programs.steam.extraPackages = [ pkgs.hidapi ];

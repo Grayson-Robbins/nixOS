@@ -133,7 +133,10 @@
    };
 
 
-  gaming.enable = true;
+  gaming = {
+    enable = true;
+    #vintagestory-server.enable = true; # Option to enable dedicated server
+  };
   
 
 

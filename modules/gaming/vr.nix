@@ -1,9 +1,11 @@
 { config, pkgs, lib, ... }:
-
+let
+  cfg = config.gaming.vr;
+in
 {
-  options.vr.enable = lib.mkEnableOption "VR services";
+  options.gaming.vr.enable = lib.mkEnableOption "VR services";
 
-  config = lib.mkIf config.vr.enable {
+  config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
       # Used for VR Compatibility

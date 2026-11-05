@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.gaming;
@@ -8,6 +8,7 @@ in
     ./steam.nix
     ./vr.nix
     ./vintagestory.nix
+    ./vintagestory-server.nix
   ];
 
   options.gaming = {
@@ -15,8 +16,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    steam.enable = lib.mkDefault true;
-    vr.enable = lib.mkDefault true;
-    vintagestory.enable = lib.mkDefault true;
+    gaming = {
+      steam.enable = lib.mkDefault true;
+      vr.enable = lib.mkDefault true;
+      vintagestory.enable = lib.mkDefault true;
+      vintagestory-server.enable = lib.mkDefault false;
+    };
   };
 }
