@@ -10,7 +10,18 @@
       ./hardware-configuration.nix
       ./modules/nixos/nh.nix
       ./modules/gaming/gaming.nix
+      ./modules/selfhost.nix
     ];
+
+
+
+  services.selfhost = {
+    enable = true;
+
+    immich.enable = true;
+    sure.enable = true;
+    grocy.enable = true;
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -237,7 +248,21 @@
 
   # Open ports in the firewall.
 
+  networking.firewall.allowedTCPPorts = [ 
+    11434
+    7000
+    22
+    80
+    443
+    9757
+    8096
+  ];
 
+  networking.firewall.allowedUDPPorts = [ 
+    5353
+    9757
+    7359
+  ];
 
 
 
