@@ -21,6 +21,18 @@
       url = "git+https://codeberg.org/PierreBorine/vintagestory-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    immich = {
+      url = "path:./modules/selfhosted/immich";
+    };
+
+    sure = {
+      url = "path:./modules/selfhosted/sure";
+    };
+
+    grocy = {
+      url = "path:./modules/selfhosted/grocy";
+    };
   };
 
   outputs = { 
@@ -30,6 +42,9 @@
     stylix, 
     niri-flake, 
     configuredNvim, 
+    immich,
+    sure,
+    grocy,
     ... 
   }@inputs:
   let
