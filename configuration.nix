@@ -191,8 +191,6 @@
     clinfo # To verify that OpenCL is correctly setup
     ethtool
 
-    ollama
-
     (waybar.overrideAttrs (oldAttrs: { # Use waybar for hyprland
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ]; # Overwrite some attributes to make this work with Hyprland, might be unnecessary.
      })
@@ -203,13 +201,17 @@
     #protonup-ng
     kitty # Hyprland default terminal
 
-    swww # Wallpaper manager
+    awww # Wallpaper manager
     networkmanagerapplet
     wofi # app launcher, based on GTK
     bottles
     ags # Aylur's GTK Shell, for making wayland widgets
     bun # Used to make AGS projects in TS
+
+    proton-pass
+
   ];
+
 
   environment.variables.EDITOR = "nvim"; # Set neovim as the default editor for the system
   environment.shellAliases = {
