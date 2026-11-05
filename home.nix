@@ -14,6 +14,7 @@
     ./homeModules/applications/discord.nix
     ./homeModules/applications/mpv.nix
     ./homeModules/applications/odysseus
+    ./homeModules/terminal.nix
   ];
 
   programs.kitty.enable = true;

@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ./homeModules/git.nix
-    ./homeModules/tmux.nix
+    ./git.nix
+    ./tmux.nix
   ];
 
   home.packages = with pkgs; [
