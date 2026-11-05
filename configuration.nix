@@ -10,9 +10,11 @@
       ./hardware-configuration.nix
       ./modules/nixos/nh.nix
       ./modules/gaming/gaming.nix
+      ./modules/nixos/vpn.nix
       ./modules/selfhost.nix
     ];
 
+  vpn.enable = true;
 
 
   services.selfhost = {
