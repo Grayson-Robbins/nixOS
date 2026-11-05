@@ -2,8 +2,8 @@
 
 let
   hyprlandStartupScript = pkgs.writeShellScriptBin "start" ''
-    ${pkgs.swww}/bin/swww init &
-    ${pkgs.swww}/bin/swww img ~/Pictures/Nature_Wallpaper.jpg &
+    ${pkgs.awww}/bin/awww init &
+    ${pkgs.awww}/bin/awww img ~/Pictures/Nature_Wallpaper.jpg &
     nm-applet --indicator &
     waybar &
     copyq --start-server &
@@ -15,6 +15,7 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
 
     xwayland.enable = true;
 

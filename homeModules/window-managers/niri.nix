@@ -2,11 +2,11 @@
 
 {
   # Import the Home Manager Niri module from the flake
-  #imports = [
-  #  inputs.niri-flake.homeModules.niri
-  #];
+  imports = [
+    inputs.niri-flake.homeModules.niri
+  ];
 
-  programs.niri = with pkgs; {
+  programs.niri = {
     enable = true;
 
     #package = pkgs.niri-unstable;
@@ -21,20 +21,20 @@
       outputs = {
         "DP-1" = {
           scale = 1.25;
-        };
-
-        "DP-2" = {
-          scale = 1.25;
           position = { # This is what puts the left monitor actually on the left side!
             x = 1440;
             y = 0;
           };
         };
+
+        "DP-2" = {
+          scale = 1.25;
+        };
       };
 
       binds = with config.lib.niri.actions; {
         "Mod+Q".action = quit;
-        "Mod+T".action = spawn "kitty";
+        "Mod+T".action.spawn = "kitty";
         "Mod+R".action = spawn-sh "wofi --show drun --allow-images";
         "Mod+C".action = close-window;
         "Mod+O".action = toggle-overview; # unstable-only action
@@ -52,6 +52,7 @@
         "Mod+7".action.focus-workspace = 7;
         "Mod+8".action.focus-workspace = 8;
         "Mod+9".action.focus-workspace = 9;
+
         # Column Focus
         "Mod+Shift+Left".action.focus-monitor-left = [];
         "Mod+Shift+Right".action.focus-monitor-right = [];
@@ -59,15 +60,17 @@
         "Mod+Right".action.focus-column-right = [];
         "Mod+Up".action.focus-window-up = [];
         "Mod+Down".action.focus-window-down = [];
-        "Mod+H".action.focus-column-left = [];
-        "Mod+L".action.focus-column-right = [];
-        "Mod+K".action.focus-window-up = [];
-        "Mod+J".action.focus-window-down = [];
-
         "Mod+Ctrl+Left".action.move-column-left = [];
         "Mod+Ctrl+Right".action.move-column-right = [];
         "Mod+Ctrl+Up".action.move-window-up = [];
         "Mod+Ctrl+Down".action.move-window-down = [];
+
+        "Mod+Shift+H".action.focus-monitor-left = [];
+        "Mod+Shift+L".action.focus-monitor-right = [];
+        "Mod+H".action.focus-column-left = [];
+        "Mod+L".action.focus-column-right = [];
+        "Mod+K".action.focus-window-up = [];
+        "Mod+J".action.focus-window-down = [];
         "Mod+Ctrl+H".action.move-column-left = [];
         "Mod+Ctrl+L".action.move-column-right = [];
         "Mod+Ctrl+K".action.move-window-up = [];
@@ -96,8 +99,8 @@
       environment = {
         "NIXOS_OZONE_WL" = "1";  # Electron Wayland hint
         "XCURSOR_SIZE" = "16";
-        "LIBVA_DRIVER_NAME" = "nvidia";
-        "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+        #"LIBVA_DRIVER_NAME" = "nvidia";
+        #"__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
         "ELECTRON_OZONE_PLATFORM_HINT" = "auto";
       };
     };
@@ -106,14 +109,17 @@
     # config = null;
   };
 
-  # Optionally, set up autostart programs (like your Hyprland exec-once)
+  # Optionally, set up autostart programs (like Hyprland exec-once)
   home.sessionVariables.NIRI_STARTUP = pkgs.writeShellScript "niri-startup" ''
-    ${pkgs.swww}/bin/swww init &
-    ${pkgs.swww}/bin/swww img ${config.stylix.image} &
+    ${pkgs.awww}/bin/awww init &
+    ${pkgs.awww}/bin/awww img ${config.stylix.image} &
     nm-applet --indicator &
     waybar &
     copyq --start-server &
     ${pkgs.mako}/bin/mako &
   '';
+
+  # Set to fix steam issues
+  home.sessionVariables.DISPLAY = ":0";
 }
 

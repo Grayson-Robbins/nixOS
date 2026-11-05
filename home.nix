@@ -6,8 +6,8 @@
 
   imports = [
     ./homeModules/styling/gtk.nix
-    ./homeModules/hyprland.nix
-    #./homeModules/niri.nix
+    ./homeModules/window-managers/hyprland.nix
+    ./homeModules/window-managers/niri.nix
     ./homeModules/packages.nix
     ./homeModules/git.nix
     ./homeModules/yazi.nix
