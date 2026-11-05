@@ -2,15 +2,14 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./modules/nixos/nh.nix
-      ./modules/nixos/vintagestory-server.nix
-      inputs.vintagestory-nix.nixosModules.default
+      ./modules/gaming/gaming.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -44,7 +43,7 @@
 
 
   # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
+  services.displayManager.gdm.enable = true;
   #services.xserver.desktopManager.gnome.enable = true;
   
   # Enable Hyprland
@@ -57,15 +56,9 @@
     xwayland.enable = true;
   };
 
-  programs.niri.enable = true;
-
- #programs.niri = {
- #  enable = true;
- #};
-
   environment.sessionVariables = {
     #WLR_NO_HARDWARE_CURSORS = "1"; # If cursor becomes invisible in wayland
-    QT_QPA_PLATFORM = "wayland";
+    QT_QPA_PLATFORM = "xcb";
     QT_QPA_PLATFORMTHEME="qt5ct";
     NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
@@ -80,26 +73,12 @@
     extraPackages = with pkgs; [ libGL egl-wayland rocmPackages.clr.icd ];
   };
 
- #hardware.nvidia = {
- #  package = config.boot.kernelPackages.nvidiaPackages.stable;
- #  modesetting.enable = true;
- #  powerManagement.enable = false;
- #  powerManagement.finegrained = false;
- #  open = false;
- #  nvidiaSettings = true;
- #};
-
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.rp_filter" = 0;
     "net.ipv4.conf.default.rp_filter" = 0;
     "net.ipv4.conf.enp3s0.rp_filter" = 0;
     "net.ipv4.ip_forward" = 1;  # Enable IP forwarding
   };
-
- #hardware.opengl = {
- #  enable = true;
- #  extraPackages = [ pkgs.nvidia-vaapi-driver ];
- #};
 
   # Configure keymap in X11
    services.xserver.xkb = {
@@ -134,31 +113,42 @@
     graysonr = {
      isNormalUser = true;
      description = "Grayson Robbins";
-     extraGroups = [ "networkmanager" "wheel" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ 
+        "networkmanager" 
+        "wheel" # Enable ‘sudo’ for the user. 
+        "adbusers" # Enable ADB operations for this user (ALVR-related)
+    ]; 
      packages = with pkgs; [
        # thunderbird
      ];
     };
 
+    kaylar = {
+     isNormalUser = true;
+     description = "Kayla Robbins";
+     packages = with pkgs; [
+       # thunderbird
+     ];
+    };
    };
+
+
+  gaming.enable = true;
+  
+
 
   # Install firefox
   programs.firefox.enable = true;
 
   # Enable unfree packages
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [inputs.vintagestory-nix.overlays.default];
 
   boot = {
     kernelModules = [
       "amdgpu"
       "tun"
       "nft_chain_nat"
-     #"nvidia"
-     #"nvidia-drm"
-     #"nvidia-modeset"
     ];
-   #kernelParams = [ "nvidia-drm.modeset=1" ];
   };
 
   # Enable Flakes
@@ -194,7 +184,7 @@
 
     mako # pure wayland notification daemon
     libnotify # mako relies on this
-    protonup-ng
+    #protonup-ng
     kitty # Hyprland default terminal
 
     swww # Wallpaper manager
@@ -215,10 +205,12 @@
   xdg.portal.enable = true; # Enable desktop portal
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Using GTK from Vimjoyer's Hyprland tutorial
 
-  programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
+  #programs.steam.enable = true;
+  #programs.steam.gamescopeSession.enable = true;
+  #programs.steam.extraPackages = [ pkgs.hidapi ];
   
-  programs.gamemode.enable = true;
+  #programs.gamemode.enable = true;
+  #programs.alvr.openFirewall = true;
 
   # Allow insecure dotnet runtime so that Vintage Story will work
   nixpkgs.config.permittedInsecurePackages = [
@@ -242,16 +234,8 @@
 
   # Open ports in the firewall.
 
-  # NEED 42420 OPEN FOR VINTAGE STORY!!!
-  networking.firewall.allowedTCPPorts = [ 42420 ];
-  networking.firewall.allowedUDPPorts = [ 42420 ];
 
-  networking.firewall.extraCommands = ''
-    ip6tables -A INPUT -p tcp --dport 42420 -j ACCEPT
-    ip6tables -A INPUT -p udp --dport 42420 -j ACCEPT
-  '';
 
-  networking.firewall.checkReversePath = false;
 
 
   services.tailscale.enable = true;
@@ -265,21 +249,11 @@
     ];
   };
 
-  services.vintagestory = {
-    enable = true;
-    package = pkgs.vintagestoryPackages.v1-22-3;
-    openFirewall = true;
-  };
-
-
   services.ollama = {
     enable = true;
     package = pkgs.ollama-vulkan;
+    host = "0.0.0.0";
   };
-
-
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

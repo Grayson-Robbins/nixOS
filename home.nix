@@ -1,7 +1,4 @@
-{ config, lib, pkgs, nix-colors, inputs, ... }:
-let
-  vintagestoryPackages = inputs.vintagestory-nix.packages.${pkgs.system};
-  in
+{ pkgs, ... }:
 {
   home.username = "graysonr"; 
   home.homeDirectory = "/home/graysonr"; 
@@ -19,8 +16,6 @@ let
     ./homeModules/tmux.nix
     ./homeModules/applications/discord.nix
     ./homeModules/applications/mpv.nix
-    inputs.vintagestory-nix.homeModules.default
-
     ./homeModules/applications/odysseus
   ];
   
@@ -41,19 +36,9 @@ let
     bat # improved cat utility, provides syntax highlighting and vim-like navigation
     yt-dlp
     tailscale
-    vintagestoryPackages.latest # ignores RCs
-    vintagestoryPackages.rustique
-    vintagestoryPackages.vs-launcher
   ];
 
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
-
-  #programs.vs-launcher = {
-  #enable = true;
-  #settings.gameVersions = with pkgs; [
-  #vintagestoryPackages.v1-22-3
-  #];
-  #};
 }
 
