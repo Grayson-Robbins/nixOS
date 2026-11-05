@@ -32,6 +32,8 @@
     tailscale
   ];
 
+  discord.enable = true;
+
   home.stateVersion = "24.05"; # Ensure compatibility
   programs.home-manager.enable = true;
 }
