@@ -7,34 +7,20 @@
 {
   imports =
     [ 
-      # Hardware config remains at repo root for now
-      ../../hardware-configuration.nix
+      ./hardware-configuration.nix
+
+      # Desktop-specific self-hosted configuration
+      ./selfhost.nix
+      ./infrastructure.nix
 
       # Shared system modules
       ../../modules/nixos/nh.nix
       ../../modules/gaming/gaming.nix
-      ../../modules/nixos/vpn.nix
-
-      # Desktop-specific self-hosted configuration
-      ./selfhost.nix
+      #../../modules/nixos/vpn.nix
     ];
 
-  vpn.enable = true;
+  #vpn.enable = true;
 
-
-  #services.selfhost = {
-  #  enable = true;
-
-  #  # Desktop-specific Docker DNS config
-  #  docker.dns = [
-  #    "192.168.1.1"
-  #    "8.8.8.8" # Use external DNS for Sure app
-  #  ];
-
-  #  immich.enable = true;
-  #  sure.enable = true;
-  #  grocy.enable = true;
-  #};
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -97,12 +83,12 @@
     extraPackages = with pkgs; [ libGL egl-wayland rocmPackages.clr.icd ];
   };
 
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.all.rp_filter" = 0;
-    "net.ipv4.conf.default.rp_filter" = 0;
-    "net.ipv4.conf.enp3s0.rp_filter" = 0;
-    "net.ipv4.ip_forward" = 1;  # Enable IP forwarding
-  };
+  #boot.kernel.sysctl = {
+  #  "net.ipv4.conf.all.rp_filter" = 0;
+  #  "net.ipv4.conf.default.rp_filter" = 0;
+  #  "net.ipv4.conf.enp3s0.rp_filter" = 0;
+  #  "net.ipv4.ip_forward" = 1;  # Enable IP forwarding
+  #};
 
   # Configure keymap in X11
    services.xserver.xkb = {
@@ -259,38 +245,38 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  #services.openssh.enable = true;
 
   # Open ports in the firewall.
 
-  networking.firewall.allowedTCPPorts = [ 
-    11434
-    7000
-    22
-    80
-    443
-    9757
-    8096
-  ];
+  #networking.firewall.allowedTCPPorts = [ 
+  #  11434
+  #  7000
+  #  22
+  #  80
+  #  443
+  #  9757
+  #  8096
+  #];
 
-  networking.firewall.allowedUDPPorts = [ 
-    5353
-    9757
-    7359
-  ];
+  #networking.firewall.allowedUDPPorts = [ 
+  #  5353
+  #  9757
+  #  7359
+  #];
 
 
 
-  services.tailscale.enable = true;
+  #services.tailscale.enable = true;
 
-  systemd.services.tailscaled = {
-    unitConfig.DefaultDependencies = false;
-    wantedBy = [ "initrd.target" ];
-    serviceConfig.Environment = [
-      "PORT=${toString(config.services.tailscale.port)}"
-      ''"FLAGS=--tun ${lib.escapeShellArg config.services.tailscale.interfaceName}"''
-    ];
-  };
+  #systemd.services.tailscaled = {
+  #  unitConfig.DefaultDependencies = false;
+  #  wantedBy = [ "initrd.target" ];
+  #  serviceConfig.Environment = [
+  #    "PORT=${toString(config.services.tailscale.port)}"
+  #    ''"FLAGS=--tun ${lib.escapeShellArg config.services.tailscale.interfaceName}"''
+  #  ];
+  #};
 
   services.ollama = {
     enable = true;
