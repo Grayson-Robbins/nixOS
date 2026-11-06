@@ -11,7 +11,7 @@
       ./modules/nixos/nh.nix
       ./modules/gaming/gaming.nix
       ./modules/nixos/vpn.nix
-      ./modules/selfhost.nix
+      ./modules/selfhosted
     ];
 
   vpn.enable = true;
@@ -19,6 +19,12 @@
 
   services.selfhost = {
     enable = true;
+
+    # Desktop-specific Docker DNS config
+    docker.dns = [
+      "192.168.1.1"
+      "8.8.8.8" # Use external DNS for Sure app
+    ];
 
     immich.enable = true;
     sure.enable = true;
@@ -173,13 +179,13 @@
   virtualisation.vmware.host.enable = true;
 
   # Rootless docker setup for Odysseuss
-  virtualisation.docker = {
-    enable = false;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
+  #virtualisation.docker = {
+  #  enable = false;
+  #  rootless = {
+  #    enable = true;
+  #    setSocketVariable = true;
+  #  };
+  #};
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
