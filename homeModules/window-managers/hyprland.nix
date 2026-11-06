@@ -21,8 +21,8 @@ in
 
     settings = {
       monitor = [
-        "DP-1, 2560x1440@144, 0x0,1"
-        "DP-2, 2560x1440@144, 2560x0, 1"
+        "DP-1, 2560x1440@144, 0x0,1,transform,1" # transform code rotates monitor DP-1 by 90 deg
+        "DP-2, 2560x1440@165, 1440x640,1" # positioning puts midpoint of landscape monitor's height at same height as midpoint of portrait monitor
         ", preferred, auto, 1, mirror, DP-2" # Uncomment this line to mirror DP-2 to a TV or other third display
       ];
 
