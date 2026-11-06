@@ -5,8 +5,6 @@
 
   imports = [
     ../../homeModules/styling/gtk.nix
-    ../../homeModules/window-managers/hyprland.nix
-    ../../homeModules/window-managers/niri.nix
     ../../homeModules/packages.nix
     ../../homeModules/yazi.nix
     ../../homeModules/styling/stylix.nix
@@ -15,6 +13,8 @@
     ../../homeModules/applications/mpv.nix
     ../../homeModules/applications/odysseus
     ../../homeModules/terminal.nix
+
+    ../../modules/home-manager/desktop/window-managers
   ];
 
   programs.kitty.enable = true;
