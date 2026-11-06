@@ -53,10 +53,11 @@
   in
   {
     packages."x86_64-linux".default = configuredNvim.packages."x86_64-linux".default;
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+
+    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        ./configuration.nix
+        ./hosts/desktop/default.nix
       ];
     };
 
