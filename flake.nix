@@ -65,7 +65,7 @@
       graysonr = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 	      modules = [
-          ./home.nix
+          ./hosts/desktop/home.nix
 	      ];
         extraSpecialArgs = { 
             inherit inputs; # This line passes inputs over to home-manager / home.nix

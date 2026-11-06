@@ -4,17 +4,17 @@
   home.homeDirectory = "/home/graysonr"; 
 
   imports = [
-    ./homeModules/styling/gtk.nix
-    ./homeModules/window-managers/hyprland.nix
-    ./homeModules/window-managers/niri.nix
-    ./homeModules/packages.nix
-    ./homeModules/yazi.nix
-    ./homeModules/styling/stylix.nix
-    ./homeModules/qutebrowser.nix
-    ./homeModules/applications/discord.nix
-    ./homeModules/applications/mpv.nix
-    ./homeModules/applications/odysseus
-    ./homeModules/terminal.nix
+    ../../homeModules/styling/gtk.nix
+    ../../homeModules/window-managers/hyprland.nix
+    ../../homeModules/window-managers/niri.nix
+    ../../homeModules/packages.nix
+    ../../homeModules/yazi.nix
+    ../../homeModules/styling/stylix.nix
+    ../../homeModules/qutebrowser.nix
+    ../../homeModules/applications/discord.nix
+    ../../homeModules/applications/mpv.nix
+    ../../homeModules/applications/odysseus
+    ../../homeModules/terminal.nix
   ];
 
   programs.kitty.enable = true;
