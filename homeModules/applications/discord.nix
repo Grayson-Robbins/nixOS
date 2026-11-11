@@ -3,7 +3,6 @@
 
   config = lib.mkIf config.discord.enable 
   {
-    nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       discord
     ];

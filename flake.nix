@@ -58,21 +58,29 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./hosts/desktop/default.nix
+
+        niri-flake.nixosModules.niri
+
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true; # Use NixOS packages
+          home-manager.useUserPackages = true; # Allow user-specific packages
+          home-manager.users.graysonr = import ./hosts/desktop/home.nix;
+        }
       ];
     };
 
     nixosConfigurations.nixos = self.nixosConfigurations.desktop;
 
-    homeConfigurations = {
-      graysonr = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-	      modules = [
-          ./hosts/desktop/home.nix
-	      ];
-        extraSpecialArgs = { 
-            inherit inputs; # This line passes inputs over to home-manager / home.nix
-        }; 
-      };
-    };
+      #homeConfigurations = {
+      #  graysonr = home-manager.lib.homeManagerConfiguration {
+      #    inherit pkgs;
+	    #    modules = [
+      #      ./hosts/desktop/home.nix
+	    #    ];
+      #    extraSpecialArgs = { 
+      #        inherit inputs; # This line passes inputs over to home-manager / home.nix
+      #    }; 
+      #  };
+      #};
   };
 }

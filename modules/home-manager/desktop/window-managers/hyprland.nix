@@ -12,7 +12,7 @@ let
   '';
 in
 {
-  imports = [ inputs.hyprland.homeManagerModules.default ];
+  #imports = [ inputs.hyprland.homeManagerModules.default ];
   config = lib.mkIf cfg.enable {
 
     wayland.windowManager.hyprland = {
