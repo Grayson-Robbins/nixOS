@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -16,10 +16,7 @@
       # Shared system modules
       ../../modules/nixos/nh.nix
       ../../modules/gaming/gaming.nix
-      #../../modules/nixos/vpn.nix
     ];
-
-  #vpn.enable = true;
 
 
   # Use the systemd-boot EFI boot loader.
@@ -48,13 +45,8 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Enable the X11 windowing system.
-  #services.xserver.enable = true;
-
-
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
   
   # Enable Hyprland
   #services.displayManager.gdm.wayland = true;
@@ -62,19 +54,15 @@
  
   programs.hyprland = {
     enable = true;
-     #package = inputs.hyprland.packages."${pkgs.system}".hyprland; # Set this in flake, useful for getting hyprland plugins in home-manager
     xwayland.enable = true;
   };
 
   environment.sessionVariables = {
     #WLR_NO_HARDWARE_CURSORS = "1"; # If cursor becomes invisible in wayland
-    #QT_QPA_PLATFORM = "xcb";
     QT_QPA_PLATFORMTHEME="qt5ct";
     NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
     #STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
     #"/home/graysonr/.steam/root/compatibilitytools.d";
-    #DISPLAY = ":1";
-    #WAYLAND_DISPLAY = "wayland-1";
   };
 
   hardware.graphics = {
@@ -154,9 +142,6 @@
   
 
 
-  # Install firefox
-  programs.firefox.enable = true;
-
   # Enable unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -188,7 +173,6 @@
 
     mako # pure wayland notification daemon
     libnotify # mako relies on this
-    #protonup-ng
     kitty # Hyprland default terminal
 
     awww # Wallpaper manager
@@ -211,7 +195,6 @@
 
   };
   xdg.portal.enable = true; # Enable desktop portal
-  #xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Using GTK from Vimjoyer's Hyprland tutorial
 
   programs.niri.enable = true;
   home-manager.backupFileExtension = "backup";
@@ -223,49 +206,6 @@
   ];
 
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  #services.openssh.enable = true;
-
-  # Open ports in the firewall.
-
-  #networking.firewall.allowedTCPPorts = [ 
-  #  11434
-  #  7000
-  #  22
-  #  80
-  #  443
-  #  9757
-  #  8096
-  #];
-
-  #networking.firewall.allowedUDPPorts = [ 
-  #  5353
-  #  9757
-  #  7359
-  #];
-
-
-
-  #services.tailscale.enable = true;
-
-  #systemd.services.tailscaled = {
-  #  unitConfig.DefaultDependencies = false;
-  #  wantedBy = [ "initrd.target" ];
-  #  serviceConfig.Environment = [
-  #    "PORT=${toString(config.services.tailscale.port)}"
-  #    ''"FLAGS=--tun ${lib.escapeShellArg config.services.tailscale.interfaceName}"''
-  #  ];
-  #};
 
   services.ollama = {
     enable = true;
