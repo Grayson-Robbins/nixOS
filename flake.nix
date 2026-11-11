@@ -15,7 +15,10 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri-flake.url = "github:sodiboo/niri-flake";
+    niri-flake = {
+      url = "github:epireyn/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     vintagestory-nix = {
       url = "git+https://codeberg.org/PierreBorine/vintagestory-nix";

@@ -68,13 +68,13 @@
 
   environment.sessionVariables = {
     #WLR_NO_HARDWARE_CURSORS = "1"; # If cursor becomes invisible in wayland
-    QT_QPA_PLATFORM = "xcb";
+    #QT_QPA_PLATFORM = "xcb";
     QT_QPA_PLATFORMTHEME="qt5ct";
     NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
     #STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
     #"/home/graysonr/.steam/root/compatibilitytools.d";
-    DISPLAY = ":1";
-    WAYLAND_DISPLAY = "wayland-1";
+    #DISPLAY = ":1";
+    #WAYLAND_DISPLAY = "wayland-1";
   };
 
   hardware.graphics = {
@@ -199,6 +199,7 @@
 
     proton-pass
 
+    xwayland-satellite # For running Steam in Niri
   ];
 
 
@@ -210,14 +211,10 @@
 
   };
   xdg.portal.enable = true; # Enable desktop portal
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Using GTK from Vimjoyer's Hyprland tutorial
+  #xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Using GTK from Vimjoyer's Hyprland tutorial
 
-  #programs.steam.enable = true;
-  #programs.steam.gamescopeSession.enable = true;
-  #programs.steam.extraPackages = [ pkgs.hidapi ];
-  
-  #programs.gamemode.enable = true;
-  #programs.alvr.openFirewall = true;
+  programs.niri.enable = true;
+  home-manager.backupFileExtension = "backup";
 
   # Allow insecure dotnet runtime so that Vintage Story will work
   nixpkgs.config.permittedInsecurePackages = [

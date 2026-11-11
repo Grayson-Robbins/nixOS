@@ -7,14 +7,14 @@
     ../../homeModules/styling/gtk.nix
     ../../homeModules/packages.nix
     ../../homeModules/yazi.nix
-    ../../homeModules/styling/stylix.nix
+    #../../homeModules/styling/stylix.nix
     ../../homeModules/qutebrowser.nix
     ../../homeModules/applications/discord.nix
     ../../homeModules/applications/mpv.nix
     ../../homeModules/applications/odysseus
     ../../homeModules/terminal.nix
 
-    ../../modules/home-manager/desktop/window-managers
+    ../../modules/home-manager/desktop/window-managers/niri.nix
   ];
 
   programs.kitty.enable = true;
