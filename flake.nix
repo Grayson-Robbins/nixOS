@@ -61,6 +61,8 @@
       ];
     };
 
+    nixosConfigurations.nixos = self.nixosConfigurations.desktop;
+
     homeConfigurations = {
       graysonr = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;

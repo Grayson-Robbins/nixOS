@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ../../modules/nixos/vpn.nix
@@ -11,7 +11,7 @@
   ];
 
   # Desktop VPN
-  vpn.enable = true;
+  vpn.enable = false;
 
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.rp_filter" = 0;
@@ -23,6 +23,17 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable portal framework
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+  };
+
+  environment.variables.XDG_CURRENT_DESKTOP = "hyprland";
+
+  # Enable WayVNC for remote connections
+  environment.systemPackages = [ pkgs.wayvnc ];
+
   # Open ports in the firewall.
 
   networking.firewall.allowedTCPPorts = [ 
@@ -33,6 +44,7 @@
     443   # Tailscale Serve
     9757  # Possibly VR-related, verify later
     8096  # Jellyfin
+    5900  # WayVNC
   ];
 
   networking.firewall.allowedUDPPorts = [ 

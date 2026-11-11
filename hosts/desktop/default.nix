@@ -112,8 +112,8 @@
     pulse.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    jack.enable = true; # Needed for JACK applications
   };
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -145,7 +145,11 @@
 
   gaming = {
     enable = true;
-    #vintagestory-server.enable = true; # Option to enable dedicated server
+    vr.enable = false;
+    vintagestory.enable = false;
+
+    # Option to enable dedicated server
+    vintagestory-server.enable = false; 
   };
   
 
@@ -166,17 +170,6 @@
 
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  virtualisation.vmware.host.enable = true;
-
-  # Rootless docker setup for Odysseuss
-  #virtualisation.docker = {
-  #  enable = false;
-  #  rootless = {
-  #    enable = true;
-  #    setSocketVariable = true;
-  #  };
-  #};
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -202,7 +195,6 @@
     networkmanagerapplet
     wofi # app launcher, based on GTK
     bottles
-    ags # Aylur's GTK Shell, for making wayland widgets
     bun # Used to make AGS projects in TS
 
     proton-pass
