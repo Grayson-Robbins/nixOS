@@ -34,6 +34,10 @@ in
       rootless = {
         enable = true;
         setSocketVariable = true;
+
+        daemon.settings = lib.mkIf (cfg.docker.dns != []) {
+          dns = cfg.docker.dns;
+        };
       };
     };
 
@@ -51,11 +55,11 @@ in
     };
 
     # Optional Docker daemon DNS config
-    home-manager.users.selfhost.xdg.configFile = 
-      lib.mkIf (cfg.docker.dns != []) {
-        "docker/daemon.json".text = builtins.toJSON {
-          dns = cfg.docker.dns;
-        };
-      };
+    #home-manager.users.selfhost.xdg.configFile = 
+    #  lib.mkIf (cfg.docker.dns != []) {
+    #    "docker/daemon.json".text = builtins.toJSON {
+    #      dns = cfg.docker.dns;
+    #    };
+    #  };
   };
 }
