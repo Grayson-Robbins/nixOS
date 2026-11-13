@@ -1,7 +1,10 @@
-
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
+  imports = [
+    ./niri/binds.nix
+  ];
+
   programs.niri.settings = {
     # Keyboard
     input.keyboard.xkb.layout = "us";
@@ -14,43 +17,84 @@
     # Environment
     environment.NIXOS_OZONE_WL = "1";
 
-    # Keybindings
-    binds = {
-      # Applications
-      "Mod+Q".action.spawn = "${pkgs.kitty}/bin/kitty";
-      "Mod+D".action.spawn = "${pkgs.fuzzel}/bin/fuzzel";
-      "Mod+R".action.spawn = [
-        "${pkgs.wofi}/bin/wofi"
-        "--show" 
-        "drun" 
-        "--allow-images"
-      ];
-      # Window management
-      "Mod+C".action.close-window = [ ];
-
-      # Niri
-      "Mod+O".action.show-hotkey-overlay = [ ];
-
-      # Quit Niri
-      "Mod+Shift+E".action.quit = [ ];
-
-      # Focus navigation
-      "Mod+Left".action.focus-column-left = [ ];
-      "Mod+Right".action.focus-column-right = [ ];
-      "Mod+Up".action.focus-window-up = [ ];
-      "Mod+Down".action.focus-window-down = [ ];
-
-      # Workspace navigation
-      "Mod+1".action.focus-workspace = 1;
-      "Mod+2".action.focus-workspace = 2;
-      "Mod+3".action.focus-workspace = 3;
-      "Mod+4".action.focus-workspace = 4;
-
-      "Mod+Shift+1".action.move-window-to-workspace = 1;
-      "Mod+Shift+2".action.move-window-to-workspace = 2;
-      "Mod+Shift+3".action.move-window-to-workspace = 3;
-      "Mod+Shift+4".action.move-window-to-workspace = 4;
+    # Declare persistent named workspaces
+    workspaces = {
+      "desktop" = {};
+      "games" = {};
     };
+
+    # Monitor config
+    outputs = {
+      "DP-1" = {
+        mode = {
+          width = 1440;
+          height = 2560; 
+          refresh = 144.0;
+        };
+
+        transform.rotation = 90;
+
+        position = {
+          x = 0;
+          y = 0;
+        };
+      };
+
+      "DP-2" = {
+        mode = {
+          width = 2560;
+          height = 1440; 
+          refresh = 164.833;
+        };
+
+        position = {
+          x = 1440;
+          y = 640;
+        };
+      };
+    };
+
+
+    spawn-at-startup = [
+      {
+        argv = [
+          "${pkgs.awww}/bin/awww"
+          "init"
+        ];
+      }
+      {
+        argv = [
+          "${pkgs.awww}/bin/awww"
+          "img"
+          "${config.home.homeDirectory}/Pictures/Nature_Wallpaper.jpg"
+        ];
+      }
+      {
+        argv = [
+          "${pkgs.networkmanagerapplet}/bin/nm-applet"
+          "--indicator"
+        ];
+      }
+      {
+        argv = [
+          "${pkgs.copyq}/bin/copyq"
+          "--start-server"
+        ];
+      }
+    ];
+
+    # Make Steam games fullscreen and focused when opened
+    window-rules = [
+      {
+        matches = [
+          { app-id = "^steam_app_[0-9]+$"; }
+        ];
+
+        open-on-workspace = "games";
+        open-fullscreen = true;
+        open-focused = true;
+      }
+    ];
   };
 
   home.packages = with pkgs; [
