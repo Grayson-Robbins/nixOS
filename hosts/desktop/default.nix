@@ -199,19 +199,11 @@
   programs.niri.enable = true;
   home-manager.backupFileExtension = "backup";
 
-  # Allow insecure dotnet runtime so that Vintage Story will work
-  nixpkgs.config.permittedInsecurePackages = [
-    "dotnet-runtime-wrapped-7.0.20"
-    "dotnet-runtime-7.0.20"
-  ];
-
-
-
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-vulkan;
-    host = "0.0.0.0";
-  };
+  #services.ollama = {
+  #  enable = true;
+  #  package = pkgs.ollama-vulkan;
+  #  host = "0.0.0.0";
+  #};
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
