@@ -8,6 +8,6 @@
         borderRadius = 5;
         borderSize = 2;
         # textColor = "#${config.colorScheme.colors.base04}";
-        layer = "overlay";
+        layer = "top";
   };
 }

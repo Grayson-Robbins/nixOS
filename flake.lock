@@ -866,6 +866,17 @@
         "type": "github"
       }
     },
+    "ollama": {
+      "locked": {
+        "path": "./modules/selfhosted/ollama",
+        "type": "path"
+      },
+      "original": {
+        "path": "./modules/selfhosted/ollama",
+        "type": "path"
+      },
+      "parent": []
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -897,6 +908,7 @@
         "immich": "immich",
         "niri-flake": "niri-flake",
         "nixpkgs": "nixpkgs_4",
+        "ollama": "ollama",
         "stylix": "stylix",
         "sure": "sure",
         "vintagestory-nix": "vintagestory-nix"

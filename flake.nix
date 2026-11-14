@@ -36,6 +36,9 @@
     grocy = {
       url = "path:./modules/selfhosted/grocy";
     };
+    ollama = {
+      url = "path:./modules/selfhosted/ollama";
+    };
   };
 
   outputs = { 
@@ -48,6 +51,7 @@
     immich,
     sure,
     grocy,
+    ollama,
     ... 
   }@inputs:
   let

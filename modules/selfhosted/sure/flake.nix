@@ -41,6 +41,15 @@
               volumes:
                 - app-storage:/rails/storage
               environment:
+                OPENAI_ACCESS_TOKEN: ollama-local
+                OPENAI_URI_BASE: http://ollama:11434/v1
+                OPENAI_MODEL: qwen3:8b
+
+                LLM_CONTEXT_WINDOW: "8192"
+                OPENAI_REQUEST_TIMEOUT: "180"
+                ASSISTANT_MAX_TOOL_CALL_ITERATIONS: "2"
+                AI_RESPONSE_TIMEOUT: "720"
+
                 <<: *rails-env
               depends_on:
                 db:
@@ -49,6 +58,7 @@
                   condition: service_healthy
               networks:
                 - sure-net
+                - selfhost-ai
 
             worker:
               image: ghcr.io/we-promise/sure:''${SURE_IMAGE_TAG:-stable}
@@ -57,6 +67,15 @@
               volumes:
                 - app-storage:/rails/storage
               environment:
+                OPENAI_ACCESS_TOKEN: ollama-local
+                OPENAI_URI_BASE: http://ollama:11434/v1
+                OPENAI_MODEL: qwen3:8b
+
+                LLM_CONTEXT_WINDOW: "8192"
+                OPENAI_REQUEST_TIMEOUT: "180"
+                ASSISTANT_MAX_TOOL_CALL_ITERATIONS: "2"
+                AI_RESPONSE_TIMEOUT: "720"
+
                 <<: *rails-env
               depends_on:
                 db:
@@ -65,6 +84,7 @@
                   condition: service_healthy
               networks:
                 - sure-net
+                - selfhost-ai
 
             db:
               image: postgres:16
@@ -104,6 +124,9 @@
           networks:
             sure-net:
               driver: bridge
+            selfhost-ai:
+              external: true
+              name: selfhost-ai
         '';
 
         initialize = pkgs.writeShellScript "sure-initialize" ''
@@ -159,8 +182,8 @@
           systemd.user.services.sure = {
             Unit = {
               Description = "Sure financial planner";
-              Requires = [ "docker.service" ];
-              After = [ "docker.service" ];
+              Requires = [ "docker.service" "selfhost-docker-network-ai.service" ];
+              After = [ "docker.service" "selfhost-docker-network-ai.service" ];
             };
 
             Service = {

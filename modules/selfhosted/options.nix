@@ -33,9 +33,12 @@
       '';
     };
 
+    docker.networks.ai.enable = lib.mkEnableOption "the shared network for self-hosted AI services";
+
 
     immich.enable = lib.mkEnableOption "Immich";
     sure.enable = lib.mkEnableOption "Sure";
     grocy.enable = lib.mkEnableOption "Grocy";
+    ollama.enable = lib.mkEnableOption "Ollama";
   };
 }
