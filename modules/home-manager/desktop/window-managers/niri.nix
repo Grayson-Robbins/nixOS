@@ -19,13 +19,26 @@
 
     # Declare persistent named workspaces
     workspaces = {
-      "desktop" = {};
-      "games" = {};
+      "desktop" = { open-on-output = "DP-1"; };
+      "games" = { open-on-output = "DP-1"; };
     };
 
     # Monitor config
     outputs = {
       "DP-1" = {
+        mode = {
+          width = 2560;
+          height = 1440; 
+          refresh = 164.833;
+        };
+
+        position = {
+          x = 1440;
+          y = 640;
+        };
+      };
+
+      "DP-2" = {
         mode = {
           width = 1440;
           height = 2560; 
@@ -37,19 +50,6 @@
         position = {
           x = 0;
           y = 0;
-        };
-      };
-
-      "DP-2" = {
-        mode = {
-          width = 2560;
-          height = 1440; 
-          refresh = 164.833;
-        };
-
-        position = {
-          x = 1440;
-          y = 640;
         };
       };
     };
