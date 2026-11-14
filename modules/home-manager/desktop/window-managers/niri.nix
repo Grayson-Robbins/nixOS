@@ -81,6 +81,16 @@
           "--start-server"
         ];
       }
+      {
+        argv = [
+          "${pkgs.mako}/bin/mako"
+        ];
+      }
+      {
+        argv = [
+          "${pkgs.waybar}/bin/waybar"
+        ];
+      }
     ];
 
     # Make Steam games fullscreen and focused when opened

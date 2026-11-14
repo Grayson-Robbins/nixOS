@@ -1,6 +1,12 @@
-{ config, lib, pkgs, inputs, ... }: 
+{ pkgs, ... }: 
 
 {
+  environment.systemPackages = with pkgs; [
+    networkmanager
+    wpa_supplicant
+    power-profiles-daemon
+  ];
+  
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
@@ -11,35 +17,54 @@
       layer = "top";
       position = "top";
       tray = { spacing = 10; };
-      modules-center = [ "hyprland/window" ];
-      modules-left = [ "hyprland/workspaces" ];
       modules-right = [
-        "pulseaudio"
         "network"
+        "clock"
         "cpu"
         "memory"
         "temperature"
-        "clock"
+        "pulseaudio"
         "tray"
       ];
       
       clock = {
         format-alt = "{:%Y-%m-%d}";
         tooltip-format = "{:%Y-%m-%d | %H:%M}";
+        font = "Monospace 10";
+        color = "#ffffff";
       };
 
       cpu = {
         format = "{usage}%";
-        tooltip = false;
+        tooltip = true;
+        background-color = "#222222";
+        foreground-color = "#00ff00";
       };
 
       memory = { format = "{}%"; };
 
-      #network = {
-       # interval = 1;
+      network = {
+        interval = 1;
+        format = "IP: {ip} | {ssid}";
+        tooltip = true;
+      };
 
-      #};
+      style = ''
+        #waybar {
+          font-family: "JetBrains Mono", monospace;
+          background: #1e1e1e;
+          color: #ffffff;
+          padding: 10px;
+        }
 
+        #waybar .module {
+          padding: 5px;
+        }
+
+        #waybar .module:hover {
+          background: #333333;
+        }
+      '';
     }];
   };
 }

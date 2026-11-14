@@ -115,6 +115,7 @@
         "networkmanager" 
         "wheel" # Enable ‘sudo’ for the user. 
         "adbusers" # Enable ADB operations for this user (ALVR-related)
+        "input" # Provide access to inputs for Waybar
     ]; 
      packages = with pkgs; [
        # thunderbird
