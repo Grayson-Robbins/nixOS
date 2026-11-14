@@ -68,7 +68,11 @@
   hardware.graphics = {
     enable = true; 
     enable32Bit = true;
-    extraPackages = with pkgs; [ libGL egl-wayland rocmPackages.clr.icd ];
+    extraPackages = with pkgs; [ 
+      #libGL 
+      #egl-wayland 
+      rocmPackages.clr.icd 
+    ];
   };
 
   #boot.kernel.sysctl = {
