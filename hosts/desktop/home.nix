@@ -4,7 +4,8 @@
   home.homeDirectory = "/home/graysonr"; 
 
   imports = [
-    ../../modules/home-manager/desktop/styling/gtk.nix
+    #../../modules/home-manager/desktop/styling/gtk.nix
+    ../../modules/home-manager/desktop/styling/cursor.nix
     ../../homeModules/packages.nix
     ../../homeModules/yazi.nix
     #../../modules/home-manager/desktop/styling/stylix.nix
