@@ -25,6 +25,8 @@
     prismlauncher # Open-source minecraft launcher
     mullvad-browser
     tailscale
+
+    freetube
   ];
 
   discord.enable = true;
