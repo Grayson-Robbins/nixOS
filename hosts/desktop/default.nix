@@ -52,10 +52,10 @@
   #services.displayManager.gdm.wayland = true;
   services.xserver.videoDrivers = [ "amdgpu" ]; # Set video drivers for gaming, also enables them for wayland
  
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
+  #programs.hyprland = {
+  #  enable = true;
+  #  xwayland.enable = true;
+  #};
 
   environment.sessionVariables = {
     #WLR_NO_HARDWARE_CURSORS = "1"; # If cursor becomes invisible in wayland

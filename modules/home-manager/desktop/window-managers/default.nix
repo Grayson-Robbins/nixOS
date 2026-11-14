@@ -7,7 +7,7 @@
   ];
 
   my.home.windowManagers = {
-    hyprland.enable = lib.mkDefault true;
-    niri.enable = lib.mkDefault false;
+    hyprland.enable = lib.mkDefault false;
+    niri.enable = lib.mkDefault true;
   };
 }
