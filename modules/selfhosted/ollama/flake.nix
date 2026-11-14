@@ -29,6 +29,8 @@
 
               networks:
                 - selfhost-ai
+              ports:
+                - "127.0.0.1:11435:11434"
 
           networks:
             selfhost-ai:

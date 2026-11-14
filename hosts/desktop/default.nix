@@ -184,8 +184,16 @@
     proton-pass
 
     xwayland-satellite # For running Steam in Niri
-  ];
 
+    (aichat.overrideAttrs (old: {
+      nativeBuildInputs = 
+        (old.nativeBuildInputs or [])
+        ++ [ pkg-config ];
+      buildInputs = 
+        (old.buildInputs or [])
+        ++ [ oniguruma ];
+    }))
+  ];
 
   environment.variables.EDITOR = "nvim"; # Set neovim as the default editor for the system
   environment.shellAliases = {
