@@ -202,10 +202,9 @@
 
   environment.variables.EDITOR = "nvim"; # Set neovim as the default editor for the system
   environment.shellAliases = {
-    nvim = "nix run ~/nixOS/";
     vi = "nix run ~/nixOS/";
-    vim = "nix run ~/nixOS/";
 
+    selfhost-docker = "sudo -u selfhost env XDG_RUNTIME_DIR=/run/user/996 DOCKER_HOST=unix:///run/user/996/docker.sock docker";
   };
   xdg.portal.enable = true; # Enable desktop portal
 
