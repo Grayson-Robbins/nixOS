@@ -2,7 +2,9 @@
 { lib, pkgs, ... }:
 
 let
-  aichatPackage = pkgs.aichat.overrideAttrs (old: {
+    aichatPackage = pkgs.aichat.overrideAttrs (old: {
+    src = ../../../../packages/aichat;
+
     nativeBuildInputs =
       (old.nativeBuildInputs or [])
       ++ [ pkgs.pkg-config ];
