@@ -26,11 +26,11 @@ in
     package = aichatPackage;
 
     settings = {
-      model = "ollama:qwen3:8b";
+      model = "ollama:gemma4:12b";
       function_calling = true;
       use_tools = "web_search,github_repo,nix_search";
 
-      rag_embedding_model = "ollama:nomic-embed-text";
+      rag_embedding_model = "ollama:bge-m3";
       rag_top_k = 12;
       rag_chunk_size = 1000;
       rag_chunk_overlap = 150;
@@ -47,11 +47,30 @@ in
             };
             "gemma4:12b".body = {
               reasoning_effort = "none";
+              #max_tokens = 8192;
+              max_tokens = 16394;
             };
           };
 
           models = [
-            # Keep your existing model declarations here.
+            {
+              name = "gemma4:12b";
+            }
+            {
+              name = "qwen3:8b";
+            }
+            {
+              name = "nomic-embed-text";
+              type = "embedding";
+              default_chunk_size = 1000;
+              max_batch_size = 50;
+            }
+            {
+              name = "bge-m3";
+              type = "embedding";
+              default_chunk_size = 1000;
+              max_batch_size = 50;
+            }
           ];
         }
       ];
