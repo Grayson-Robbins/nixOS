@@ -199,6 +199,10 @@
         (old.buildInputs or [])
         ++ [ oniguruma ];
     }))
+
+    jq
+    ripgrep
+    fastfetch
   ];
 
   environment.variables.EDITOR = "nvim"; # Set neovim as the default editor for the system
