@@ -16,6 +16,7 @@
     ../../homeModules/terminal.nix
 
     ../../modules/home-manager/desktop/window-managers/niri.nix
+    ../../modules/home-manager/applications/aichat
   ];
 
   programs.kitty.enable = true;

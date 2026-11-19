@@ -16,6 +16,7 @@
       # Shared system modules
       ../../modules/nixos/nh.nix
       ../../modules/gaming/gaming.nix
+      ../../modules/services/searxng.nix
     ];
 
 

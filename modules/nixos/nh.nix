@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   environment.sessionVariables = {
-    FLAKE = "/home/graysonr/nixOS";
+    NH_FLAKE = "/home/graysonr/nixOS";
   };
 
   environment.systemPackages = with pkgs; [
